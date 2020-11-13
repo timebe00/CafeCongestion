@@ -1,11 +1,9 @@
 <template>
   <v-main>
-    <v-app-bar
+    <v-app-bar id="hed"
         absolute
-        color="blue"
     >
       <v-app-bar-nav-icon v-on:click="testopen()"></v-app-bar-nav-icon>
-      <v-container style="height: 1000px;"></v-container>
     </v-app-bar>
     <v-navigation-drawer
         v-model="drawer"
@@ -24,20 +22,14 @@
         </v-list-item>
       </v-list-item-group>
     </v-navigation-drawer>
-    <Home/>
+    <router-view/>
   </v-main>
 </template>
 
 <script>
-import Home from "./views/Home.vue"
-// import Map from "./components/Map.vue"
 
 export default {
   name: "App",
-  components: {
-    Home
-    // Map
-  },
   methods: {
     test() {
       console.log("echo")
@@ -51,3 +43,9 @@ export default {
   })
 };
 </script>
+
+<style>
+#hed {
+  color: blue
+}
+</style>

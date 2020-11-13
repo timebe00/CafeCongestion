@@ -108,13 +108,13 @@ export default {
               // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
               infowindow.setContent(content);
               infowindow.open(map, marker)
-              let btn1 = document.getElementById("showMenu");
-              let btn2 = document.getElementById("showPeople");
+              let btn1 = document.getElementById("showPeople");
+              let btn3 = document.getElementById("showMenu");
               btn1.onclick = function () {
-                router.push({name: 'Menu', params: {'place': place.place_name}});
-              }
-              btn2.onclick = function () {
                 window.open('http://localhost:1234/opencv/'+place2)
+              }
+              btn3.onclick = function () {
+                router.push({name: 'Menu', params: {'place': place.place_name}});
               }
             });
       }

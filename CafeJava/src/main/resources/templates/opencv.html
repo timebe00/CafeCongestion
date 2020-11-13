@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<section>
+    <div><iframe width="920px" height="500px"src = "http://0.0.0.0:5000/"> OPENCV </iframe></div>
+    <div><iframe width="920px" height="500px" src = "http://0.0.0.0:4455/"> OPENCV </iframe></div>
+    <div><canvas width="920px" height="750px" id="c"></canvas></div>
+</section>
+<body>
+    <div id="numberz">
+        <input type="number" id="z">
+        <button id="okbtn">확인</button>
+    </div>
+</body>
+</html>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script type="module">
+    //  three.js 위치 import 하기
+    import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r119/build/three.module.js';
+
+    //  그려줄 위치 설정하기
+    const canvas = document.querySelector('#c');
+    const renderer = new THREE.WebGLRenderer({canvas});
+    renderer.setSize (window.innerWidth, window.innerHeight);
+
+    const fov = 178;
+    const aspect = 2;  // the canvas default
+    const near = 0.1;
+    const far = 0;
+    let r = 0.0;
+    let theta = 0.0;
+    let arr;
+    let cube = new Array();
+    let rs_angle = new Array();
+    let rs_dist = new Array();
+    let geometry;
+    let material;
+
+    //  한변의 길이
+    const radius = 0.5;
+    //  segments 각형( 최소 3각형)
+    const segments = 25;
+    //  무엇으로 그려줄 지 설정히기
+    geometry = new THREE.CircleBufferGeometry(radius, segments);
+    //  그려줄 것 색 설정히기
+    material = new THREE.MeshBasicMaterial({ color: 0xffffff })
+
+    //  카메라 보이는 크기 설정하기
+    const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+    //  카메라 위치 설정하기
+    camera.position.z = 2
+    //  좌표계 설정
+    const scene = new THREE.Scene();
+    //  배경색 설정
+    scene.background = new THREE.Color( 0x000000);
+    //  실행하기
+    setInterval(recy,500)
+    //  점 찍기
+    //recy()
+    function recy () {
+        axios.get('http://localhost:7777/getlidar').then(res => {
+            rs_angle = res.data.key_angle
+            rs_dist = res.data.key_dist
+            console.log(rs_dist)
+        })
+
+        for(let i = 0; i < rs_angle.length; i = i + 1)
+        {
+            r = rs_dist[i]/100
+            theta = rs_angle[i]
+            let x = r * Math.cos( theta*(Math.PI/180) )
+            let y = r * Math.sin( theta*(Math.PI/180) )
+
+            //  색가 그릴 것을 합쳐주기
+            cube[i] = new THREE.Mesh(geometry, material)
+            //  중심에서부터 x 축으로 옮겨주기
+            cube[i].position.x = x;
+            //  중심에서부터 y 축으로 옮겨주기
+            cube[i].position.y = y;
+            //  좌표계에다가 그려주기
+            scene.add(cube[i])
+        }
+
+        renderer.render(scene, camera)
+
+        //  그려준거 삭제하기
+        for(let i = 0; i<rs_angle.length; i++)
+        {
+            scene.remove(cube[i])
+            cube[i].geometry.dispose();
+            cube[i].material.dispose();
+            cube[i] = undefined;
+        }
+
+    }
+</script>
+<style>
+    canvas {
+        border: 1px solid blue;
+    }
+    section > div{
+        position: absolute;
+    }
+    section > div:nth-child(1) {
+        top: 0;
+        left: 0;
+        bottom: 50%;
+        right: 50%;
+    }
+    section > div:nth-child(2) {
+        top: 50%;
+        left: 0%;
+        bottom: 0%;
+        right: 50%;
+    }
+    section > div:nth-child(3){
+        top: 10%;
+        left: 50%;
+        bottom: 0%;
+        right: 0%;
+    }
+    iframe {
+        border: 2px red solid;
+    }
+
+    body {
+        margin: 0;
+        display: flex;
+    }
+
+    #numberz {
+        margin-left: 80%;
+        margin-top: 30px;
+    }
+</style>
