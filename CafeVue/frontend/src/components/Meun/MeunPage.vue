@@ -1,7 +1,13 @@
 <template>
   <div id="card">
-    <div id="HO" v-for="i in item" :key="i">
-    </div>
+    <ul id="HO">
+      <ol
+           v-for="i in item"
+           :key="i.key">
+        {{ i.name }}<br>
+        {{ i.size }} <v-btn v-on:click="removeitem(i.key)">취소</v-btn>
+      </ol>
+    </ul>
     <div id="MU">
       <v-row>
           <v-card
@@ -29,17 +35,18 @@
 
             <v-card-actions>
               Size :
-              <v-checkbox v-model="size[idx]" value="3" v-if="item.va === 1"/>
-              <p v-if="item.va===1">Venti</p>
-              <v-checkbox v-model="size[idx]" value="2" v-if="item.gr === 1"/>
+              <v-checkbox v-model="size[idx]" value="3" v-if="item.va === 123"/>
+              <p v-if="item.va===123">Venti</p>
+              <v-checkbox v-model="size[idx]" value="2" v-if="item.gr === 0"/>
               <p v-if="item.gr===1">Grande</p>
-              <v-checkbox v-model="size[idx]" value="1" v-if="item.ta === 1"/>
+              <v-checkbox v-model="size[idx]" value="1" v-if="item.ta === 0"/>
               <p v-if="item.ta===1">Tall</p>
-              <v-btn v-on:click="PushCof(item.name, size[idx])">확인</v-btn>
+              <v-btn v-on:click="PushCof(item.name, size[idx], idx)">확인</v-btn>
             </v-card-actions>
         </v-card>
       </v-row>
     </div>
+    <v-btn v-on:click="Order()">주문하기</v-btn>
   </div>
 </template>
 
@@ -51,13 +58,30 @@ export default {
   data: () => ({
     menu: [],
     size: [],
-    item: Map,
+    item: [],
+    k: 0,
     dialog3: false
   }),
   methods: {
-    PushCof(na, si) {
-      console.log("na : " + na)
-      console.log("si : " + si)
+    PushCof(na, si, idx) {
+      this.item.push({key:this.k, name: na, size: si, done: false})
+      this.k++
+      this.size[idx] = ''
+    },
+    removeitem (key) {
+      const targetIndex = this.item.findIndex(v => v.key === key)
+      this.item.splice(targetIndex, 1)
+    },
+    Order() {
+      console.log("Order")
+      const order = this.item
+      axios.post('http://localhost:1234/menu/show', {order})
+        .then(res => {
+          console.log(res)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   },
   props: {

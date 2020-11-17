@@ -6,6 +6,7 @@
 
 <script>
 import MeunPage from "@/components/Meun/MeunPage";
+import {mapState} from 'vuex'
 
 export default {
 name: "Menu",
@@ -14,6 +15,12 @@ name: "Menu",
   },
   props: {
     place: String
+  },
+  computed: {
+    ...mapState(['id'])
+  },
+  mounted() {
+    console.log("id : " + this.id)
   }
 }
 </script>
