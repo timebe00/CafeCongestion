@@ -6,23 +6,38 @@ import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Log
 @Service
 public class MenuServicelmpl implements MenuService {
+
     @Autowired
     private MenuRepository repository;
 
     @Override
     public Boolean create(Menu menu) throws Exception {
-        repository.create(menu);
+        repository.save(menu);
         return true;
     }
 
     @Override
-    public Menu show(String place) throws Exception {
-        Menu test = repository.show(place);
-        log.info(String.valueOf(test));
-        return test;
+    public List<Menu> show(String place) throws Exception {
+        log.info("Service Menu Show");
+        return repository.findByPlace(place);
+
+//        log.info(String.valueOf(test));
+//        return test;
 //        return repository.show(place);
+
+        //  업로드
+//        Optional<Menu> menu = repository.findById(Long.valueOf("3"));
+//        Menu obj = menu.get();
+//        obj.setPlace("replace");
+//        repository.save(obj);
+
+//        repository.save(obj);
+
     }
 }

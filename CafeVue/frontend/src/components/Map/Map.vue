@@ -32,9 +32,10 @@ export default {
       let map = new kakao.maps.Map(mapContainer, mapOption);
       //장소 검색 객체를 생성합니다.
       let ps = new kakao.maps.services.Places(map);
-      ps.keywordSearch('종각 비트캠프', placesSearchCB);
-      ps.keywordSearch('종로2가 카페', placesSearchCB);
-      ps.keywordSearch('종각역 카페', placesSearchCB);
+      ps.keywordSearch('커피빈 종각역점', placesSearchCB);
+      // ps.keywordSearch('종각 비트캠프', placesSearchCB);
+      // ps.keywordSearch('커피빈 종각역점', placesSearchCB);
+      // ps.keywordSearch('종각역 카페', placesSearchCB);
       // 키워드 검색 완료 시 호출되는 콜백함수 입니다
       // eslint-disable-next-line no-unused-vars
       function placesSearchCB(data, status, pagination) {

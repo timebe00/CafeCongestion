@@ -5,6 +5,8 @@ import com.example.demo.entity.Register;
 import com.example.demo.service.MenuService;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.HashMap;
+import java.util.List;
 
 @Log
 @Controller
@@ -28,13 +31,12 @@ public class MenuController {
     }
 
     @PostMapping("/show")
-    public Menu show(@Validated @RequestBody HashMap place) throws Exception {
+    public ResponseEntity<List<Menu>> show(@Validated @RequestBody HashMap place) throws Exception {
         log.info("Controller Menu Show");
         String pl = String.valueOf(place.get("place"));
         log.info(pl);
-        Menu test = service.show(pl);
-        log.info(String.valueOf(test));
-        return test;
-//        return service.show(pl);
+        List<Menu> getMU = service.show(pl);
+        log.info("list len : " + getMU);
+        return new ResponseEntity<List<Menu>>(getMU, HttpStatus.OK);
     }
 }

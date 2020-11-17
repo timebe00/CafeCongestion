@@ -1,19 +1,21 @@
 <template>
   <div id="card">
-    <div id="HO">
+    <div id="HO" v-for="i in item" :key="i">
     </div>
     <div id="MU">
       <v-row>
-        <v-card
+          <v-card
             class="mx-auto"
             max-width="344"
-        >
+            v-for="(item, idx) in menu"
+            :key="item.menuNo"
+          >
           <v-img
               src="@/assets/CafeMenu/아메리카노.png"
               height="200px"
           ></v-img>
-          <v-card-title>아메리카노</v-card-title>
-          <v-card-subtitle>3000원</v-card-subtitle>
+          <v-card-title>{{ item.name }}</v-card-title>
+          <v-card-subtitle>{{ item.pr }}</v-card-subtitle>
           <v-card-actions>
             <v-btn
                 color="orange lighten-2"
@@ -22,32 +24,19 @@
               선택하기
             </v-btn>
 
-            <v-spacer></v-spacer>
-
-            <v-btn
-                icon
-                v-on:click="show = !show"
-            >
-              <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
-            </v-btn>
           </v-card-actions>
+            <v-divider></v-divider>
 
-          <v-expand-transition>
-            <div v-show="show">
-              <v-divider></v-divider>
-
-              <v-card-actions>
-                Size :
-                <v-checkbox v-model="size" value="3" id="up"/>
-                Venti
-                <v-checkbox v-model="size" value="2" id="up"/>
-                Grande
-                <v-checkbox v-model="size" value="1" id="up"/>
-                Tall
-                <v-btn v-on:click="PushCof()">확인</v-btn>
-              </v-card-actions>
-            </div>
-          </v-expand-transition>
+            <v-card-actions>
+              Size :
+              <v-checkbox v-model="size[idx]" value="3" v-if="item.va === 1"/>
+              <p v-if="item.va===1">Venti</p>
+              <v-checkbox v-model="size[idx]" value="2" v-if="item.gr === 1"/>
+              <p v-if="item.gr===1">Grande</p>
+              <v-checkbox v-model="size[idx]" value="1" v-if="item.ta === 1"/>
+              <p v-if="item.ta===1">Tall</p>
+              <v-btn v-on:click="PushCof(item.name, size[idx])">확인</v-btn>
+            </v-card-actions>
         </v-card>
       </v-row>
     </div>
@@ -60,25 +49,28 @@ import axios from 'axios'
 export default {
   name: "MeunPage",
   data: () => ({
-    show: false,
+    menu: [],
     size: [],
+    item: Map,
     dialog3: false
   }),
   methods: {
-    PushCof() {
-      console.log(this.size)
+    PushCof(na, si) {
+      console.log("na : " + na)
+      console.log("si : " + si)
     }
   },
   props: {
     placeSW: String
   },
-  created() {
+  async mounted() {
     let place = this.placeSW
     console.log(place)
-    axios.post('http://localhost:1234/menu/show', {place})
+    await axios.post('http://localhost:1234/menu/show', {place})
       .then(res => {
         console.log("성공")
         console.log(res.data)
+        this.menu = res.data
       })
       .catch(err => {
         console.log(err)

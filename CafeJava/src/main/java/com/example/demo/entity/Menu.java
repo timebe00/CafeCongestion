@@ -23,20 +23,20 @@ public class Menu {
     private Long menuNo;
     //  이미지 이름
     @Column(name = "imgN", nullable = false)
-    private String ImgN;
+    private String imgN;
     //  메뉴 이름
     @Column(name = "name", nullable = false)
-    private String Name;
+    private String name;
     @Column(name = "place", nullable = false)
-    private String Place;
+    private String place;
     //  가격
     @Column(name = "pr", nullable = false)
-    private int Pr;
+    private int pr;
     //  싸이즈
     @Column(name = "va", nullable = true)
-    private int Va;
+    private int va;
     @Column(name = "gr", nullable = true)
-    private int Gr;
+    private int gr;
     @Column(name = "ta", nullable = true)
-    private int Ta;
+    private int ta;
 }
