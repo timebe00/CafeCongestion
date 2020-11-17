@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Log
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/register")
 @CrossOrigin(origins = "http://localhost:8080", allowedHeaders = "*")
 public class RegisterController {
     @Autowired
@@ -33,7 +33,7 @@ public class RegisterController {
 
     @PostMapping("/overlapID")
     public ResponseEntity<String> overlapID(@Validated @RequestBody Register register) throws Exception {
-        log.info("Controller Overlap");
+        log.info("Controller overlapID");
         Boolean TF = false;
         TF = service.overlapID(register);
 
@@ -48,9 +48,9 @@ public class RegisterController {
 
     @PostMapping("/overlapNN")
     public ResponseEntity<String> overlapNN(@Validated @RequestBody Register register) throws Exception {
-        log.info("Controller Overlap");
+        log.info("Controller overlapNN");
         Boolean TF = false;
-        TF = service.overlapID(register);
+        TF = service.overlapNN(register);
 
         if (TF) {
             log.info("ok");

@@ -23,23 +23,20 @@ public class Register {
     private Long userNo;
     //  이름
     @Column(name = "name", nullable = false)
-    private String Name;
+    private String name;
     //  id
     @Column(name = "id", nullable = false, unique = true)
-    private String Id;
+    private String id;
     // pw
     @Column(name = "pw", nullable = false)
-    private String Pw;
+    private String pw;
     //  Nickname
     @Column(name = "nn", nullable = false, unique = true)
-    private String Nn;
-    //  E-mail
-    @Column(name = "em", nullable = false)
-    private String Em;
+    private String nn;
     //  Address
-    @Column(name = "ad", columnDefinition = "TEXT", nullable = false)
-    private String Ad;
+    @Column(name = "ad", columnDefinition = "TEXT")
+    private String ad;
     //  Phone Number
     @Column(name = "pn", nullable = false)
-    private int Pn;
+    private int pn;
 }

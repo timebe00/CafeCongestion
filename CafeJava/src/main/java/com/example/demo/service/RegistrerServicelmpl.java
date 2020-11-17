@@ -6,6 +6,7 @@ import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.regex.Pattern;
 
 @Log
@@ -19,15 +20,15 @@ public class RegistrerServicelmpl implements RegisterService{
     public Boolean register(Register register) throws Exception {
         log.info("Register Service Register");
 
-        if (register.getId().length() > 4 && register.getPw().length() > 16 && register.getNn().length() > 4 && register.getPn() >=1000000000 &&
-                Pattern.matches("\\w+@\\w+\\.\\w+(\\.\\w+)?", register.getEm()) &&
+        if (register.getId().length() > 4 && register.getPw().length() > 16 && register.getNn().length() > 4 && register.getPn() >=100000000 &&
                 Pattern.matches("^.*(([a-zA-Z])+).*$",register.getId()) &&
                 Pattern.matches("^.*(([a-zA-Z])+).*$",register.getPw()) &&
                 Pattern.matches("^.*(([1-9])+).*$",register.getPw()) &&
                 Pattern.matches("^.*(([!@#$%^&*(),.?\":{}|<>])+).*$",register.getPw()) &&
                 Pattern.matches("^[0-9]*$",String.valueOf(register.getPn()))
         ) {
-            reposirory.create(register);
+            log.info("Register Service Register");
+            reposirory.save(register);
             return true;
         } else {
             return false;
@@ -39,8 +40,8 @@ public class RegistrerServicelmpl implements RegisterService{
         log.info("Register Service Overlap");
         if(register.getId().length() > 4 && Pattern.matches("^.*(([a-zA-Z])+).*$",register.getId()))
         {
-            boolean TF = reposirory.overlapID(register);
-
+            boolean TF = reposirory.existsById(register.getId());
+            log.info("TF : " + TF);
             return TF ? false : true;
         }
         return false;
@@ -51,7 +52,7 @@ public class RegistrerServicelmpl implements RegisterService{
         log.info("Register Service Overlap");
         if(register.getNn().length() > 4)
         {
-            boolean TF = reposirory.overlapNN(register);
+            boolean TF = reposirory.existsByNn(register.getNn());
 
             return TF ? false : true;
         }
@@ -64,7 +65,7 @@ public class RegistrerServicelmpl implements RegisterService{
         if(register.getPn() >=1000000000 && Pattern.matches("^[0-9]*$",String.valueOf(register.getPn()))
         ) {
             Register getforid;
-            getforid = reposirory.findid(register);
+            getforid = reposirory.findByNameAndPn(register.getName(), register.getPn()).get(0);
             return getforid;
         }
         return null;
@@ -73,11 +74,10 @@ public class RegistrerServicelmpl implements RegisterService{
     @Override
     public Register findPw(Register register) throws Exception {
         log.info("Register Service Find Pw");
-        if(register.getId().length() > 4 && Pattern.matches("^.*(([a-zA-Z])+).*$",register.getId()) &&
-                Pattern.matches("\\w+@\\w+\\.\\w+(\\.\\w+)?", register.getEm())
+        if(register.getId().length() > 4 && Pattern.matches("^.*(([a-zA-Z])+).*$",register.getId())
         ) {
             Register getforid;
-            getforid = reposirory.findpw(register);
+            getforid = reposirory.findByNameAndIdAndPn(register.getName(), register.getId(), register.getPn()).get(0);
             return getforid;
         }
         return null;
@@ -91,7 +91,10 @@ public class RegistrerServicelmpl implements RegisterService{
                 Pattern.matches("^.*(([1-9])+).*$",register.getPw()) &&
                 Pattern.matches("^.*(([!@#$%^&*(),.?\":{}|<>])+).*$",register.getPw())
         ) {
-            reposirory.uplodpw(register);
+            log.info("Clear");
+            Register upLode = reposirory.findById(register.getId()).get(0);
+            upLode.setPw(register.getPw());
+            reposirory.save(upLode);
             return true;
         }
         return false;
@@ -106,7 +109,7 @@ public class RegistrerServicelmpl implements RegisterService{
                 Pattern.matches("^.*(([1-9])+).*$",register.getPw()) &&
                 Pattern.matches("^.*(([!@#$%^&*(),.?\":{}|<>])+).*$",register.getPw())
         ) {
-            Register getid = reposirory.login(register);
+            Register getid = reposirory.findByIdAndPw(register.getId(), register.getPw()).get(0);
             return getid;
         }
         return null;
@@ -117,11 +120,10 @@ public class RegistrerServicelmpl implements RegisterService{
     아이디	(중복)
     비밀번호
     닉네임	(중복)
-    이메일	(보내기)
     주소
     전화번호	(gsm 사용시 확인 문자)
 
     로그인(아이디 비번)
     아이디 찾기(이름, 전화번호)
-    비밀번호(이름 아이디 이메일(확인))
+    비밀번호(이름 아이디 전화번호)
  */
