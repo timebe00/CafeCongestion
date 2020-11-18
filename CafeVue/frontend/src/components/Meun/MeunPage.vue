@@ -5,7 +5,11 @@
            v-for="i in item"
            :key="i.key">
         {{ i.name }}<br>
-        {{ i.size }} <v-btn v-on:click="removeitem(i.key)">취소</v-btn>
+        <p v-if="i.size === '1'" id="shsi">Tall</p>
+        <p v-else-if="i.size === '2'" id="shsi">Grande</p>
+        <p v-else id="shsi">Venti</p>
+<!--        {{ i.size === '1' }}-->
+        <v-btn v-on:click="removeitem(i.key)">취소</v-btn>
       </ol>
     </ul>
     <div id="MU">
@@ -37,11 +41,11 @@
               Size :
               <v-checkbox v-model="size[idx]" value="3" v-if="item.va === 123"/>
               <p v-if="item.va===123">Venti</p>
-              <v-checkbox v-model="size[idx]" value="2" v-if="item.gr === 0"/>
+              <v-checkbox v-model="size[idx]" value="2" v-if="item.gr === 123"/>
               <p v-if="item.gr===1">Grande</p>
-              <v-checkbox v-model="size[idx]" value="1" v-if="item.ta === 0"/>
+              <v-checkbox v-model="size[idx]" value="1" v-if="item.ta === 123"/>
               <p v-if="item.ta===1">Tall</p>
-              <v-btn v-on:click="PushCof(item.name, size[idx], idx)">확인</v-btn>
+              <v-btn v-on:click="PushCof(item.name, size[idx], idx, idSt, placeSW)">확인</v-btn>
             </v-card-actions>
         </v-card>
       </v-row>
@@ -52,6 +56,7 @@
 
 <script>
 import axios from 'axios'
+import {mapState} from 'vuex'
 
 export default {
   name: "MeunPage",
@@ -60,13 +65,22 @@ export default {
     size: [],
     item: [],
     k: 0,
+    TF: true,
     dialog3: false
   }),
+  computed: {
+    ...mapState(["idSt"])
+  },
   methods: {
-    PushCof(na, si, idx) {
-      this.item.push({key:this.k, name: na, size: si, done: false})
-      this.k++
-      this.size[idx] = ''
+    PushCof(na, si, idx, id, place) {
+      if(this.k === null || na === null || si === '') {
+        console.log("ID : " + id)
+      }
+      else {
+        this.item.push({key: this.k, name: na, size: si, id: id, place: place})
+        this.k++
+        this.size[idx] = ''
+      }
     },
     removeitem (key) {
       const targetIndex = this.item.findIndex(v => v.key === key)
@@ -75,13 +89,17 @@ export default {
     Order() {
       console.log("Order")
       const order = this.item
-      axios.post('http://localhost:1234/menu/show', {order})
-        .then(res => {
-          console.log(res)
-        })
-        .catch(err => {
-          console.log(err)
-        })
+      console.log(this.item)
+      if(this.item.length != 0) {
+        axios.post('http://localhost:1234/orderby/create', {order})
+            .then(res => {
+              console.log(res)
+            })
+            .catch(err => {
+              console.log(err)
+            })
+        this.item.splice(0)
+      }
     }
   },
   props: {
@@ -93,7 +111,11 @@ export default {
     await axios.post('http://localhost:1234/menu/show', {place})
       .then(res => {
         console.log("성공")
-        console.log(res.data)
+        console.log(res.data.length)
+        for(let i = 0; i<res.data.length; i++)
+        {
+          this.size[i] = ''
+        }
         this.menu = res.data
       })
       .catch(err => {
@@ -111,13 +133,11 @@ export default {
 #HO {
   position: sticky;
   float: right;
-  border: 1px solid black;
   width: 15vw;
   height: 100vh;
   margin-right:30px;
 }
 #MU {
-  border: 1px solid black;
   width: 75vw;
 }
 </style>

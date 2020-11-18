@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Menu from "../views/Menu.vue";
+import getOrder from "../views/manager/getOrder.vue";
 
 import Login from "../views/register/Login.vue";
 import Register from "../views/register/Register.vue";
@@ -27,6 +28,11 @@ const routes = [
     props: {
       default: true
     }
+  },
+  {
+    path: "/order",
+    name: "getOrder",
+    component: getOrder
   },
     /////////////////////////////////////////////////////////////////////
   {

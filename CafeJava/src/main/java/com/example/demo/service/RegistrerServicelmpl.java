@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 public class RegistrerServicelmpl implements RegisterService{
 
     @Autowired
-    private RegisterReposirory reposirory;
+    private RegisterReposirory repository;
 
     @Override
     public Boolean register(Register register) throws Exception {
@@ -28,7 +28,7 @@ public class RegistrerServicelmpl implements RegisterService{
                 Pattern.matches("^[0-9]*$",String.valueOf(register.getPn()))
         ) {
             log.info("Register Service Register");
-            reposirory.save(register);
+            repository.save(register);
             return true;
         } else {
             return false;
@@ -40,7 +40,7 @@ public class RegistrerServicelmpl implements RegisterService{
         log.info("Register Service Overlap");
         if(register.getId().length() > 4 && Pattern.matches("^.*(([a-zA-Z])+).*$",register.getId()))
         {
-            boolean TF = reposirory.existsById(register.getId());
+            boolean TF = repository.existsById(register.getId());
             log.info("TF : " + TF);
             return TF ? false : true;
         }
@@ -52,7 +52,7 @@ public class RegistrerServicelmpl implements RegisterService{
         log.info("Register Service Overlap");
         if(register.getNn().length() > 4)
         {
-            boolean TF = reposirory.existsByNn(register.getNn());
+            boolean TF = repository.existsByNn(register.getNn());
 
             return TF ? false : true;
         }
@@ -65,7 +65,7 @@ public class RegistrerServicelmpl implements RegisterService{
         if(register.getPn() >=1000000000 && Pattern.matches("^[0-9]*$",String.valueOf(register.getPn()))
         ) {
             Register getforid;
-            getforid = reposirory.findByNameAndPn(register.getName(), register.getPn()).get(0);
+            getforid = repository.findByNameAndPn(register.getName(), register.getPn()).get(0);
             return getforid;
         }
         return null;
@@ -77,7 +77,7 @@ public class RegistrerServicelmpl implements RegisterService{
         if(register.getId().length() > 4 && Pattern.matches("^.*(([a-zA-Z])+).*$",register.getId())
         ) {
             Register getforid;
-            getforid = reposirory.findByNameAndIdAndPn(register.getName(), register.getId(), register.getPn()).get(0);
+            getforid = repository.findByNameAndIdAndPn(register.getName(), register.getId(), register.getPn()).get(0);
             return getforid;
         }
         return null;
@@ -92,9 +92,9 @@ public class RegistrerServicelmpl implements RegisterService{
                 Pattern.matches("^.*(([!@#$%^&*(),.?\":{}|<>])+).*$",register.getPw())
         ) {
             log.info("Clear");
-            Register upLode = reposirory.findById(register.getId()).get(0);
+            Register upLode = repository.findById(register.getId()).get(0);
             upLode.setPw(register.getPw());
-            reposirory.save(upLode);
+            repository.save(upLode);
             return true;
         }
         return false;
@@ -109,8 +109,17 @@ public class RegistrerServicelmpl implements RegisterService{
                 Pattern.matches("^.*(([1-9])+).*$",register.getPw()) &&
                 Pattern.matches("^.*(([!@#$%^&*(),.?\":{}|<>])+).*$",register.getPw())
         ) {
-            Register getid = reposirory.findByIdAndPw(register.getId(), register.getPw()).get(0);
+            Register getid = repository.findByIdAndPw(register.getId(), register.getPw()).get(0);
             return getid;
+        }
+        return null;
+    }
+
+    public Register getPlace(Register register) throws Exception {
+        log.info("Register Service Get Place");
+        if(register.getId().length() > 4 && Pattern.matches("^.*(([a-zA-Z])+).*$",register.getId())){
+            Register getplace = repository.findById(register.getId()).get(0);
+            return getplace;
         }
         return null;
     }

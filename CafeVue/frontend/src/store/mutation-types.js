@@ -1,2 +1,2 @@
 export const SETID = 'SETID'
-export const SETID2 = 'SETID2'
+export const SETAD = 'SETAD'

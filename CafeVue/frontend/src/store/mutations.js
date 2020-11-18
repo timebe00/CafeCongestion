@@ -1,15 +1,15 @@
 import {
     SETID,
-    SETID2
+    SETAD
 } from './mutation-types'
 
 export default {
-    [SETID] (state, id) {
-        console.log("SETID : " + id)
-        state.id = id
+    [SETID] (state, idAc) {
+        console.log("SETID : " + idAc)
+        state.idSt = idAc
     },
-    [SETID2] (state, id) {
-        console.log("SETID : " + id)
-        state.id = id
+    [SETAD] (state, adAc) {
+        console.log("SETAD : " + adAc)
+        state.adSt = adAc
     }
 }

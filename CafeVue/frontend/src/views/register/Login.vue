@@ -18,6 +18,7 @@ export default {
   }),
   methods: {
     ...mapActions(['getIdAc']),
+    ...mapActions(["getAdAc"]),
     onSubmit(payload) {
       const {id, pw} = payload
       axios.post('http://localhost:1234/register/login', {id, pw})
@@ -27,6 +28,7 @@ export default {
             } else {
               console.log(res.data.id)
               this.getIdAc(res.data.id)
+              this.getAdAc(res.data.ad)
               router.push('/')
             }
           })

@@ -110,4 +110,17 @@ public class RegisterController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
     }
+
+    @PostMapping("/place")
+    public ResponseEntity<Register> place(@Validated @RequestBody Register register) throws Exception {
+        log.info("Controller Login");
+        Register getPlace;
+        getPlace = service.login(register);
+
+        if (getPlace != null) {
+            return new ResponseEntity<>(getPlace, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+    }
 }
