@@ -7,6 +7,7 @@
 <script>
 import MeunPage from "@/components/Meun/MeunPage";
 import {mapState} from 'vuex'
+import router from "@/router";
 
 export default {
 name: "Menu",
@@ -17,10 +18,13 @@ name: "Menu",
     place: String
   },
   computed: {
-    ...mapState(['id'])
+    ...mapState(['idSt'])
   },
   mounted() {
     console.log("id : " + this.id)
+    if (this.idSt == "null") {
+      router.push("/")
+    }
   }
 }
 </script>
