@@ -14,12 +14,19 @@ public class OrderbyServicelmpl implements OrderbyService {
     @Autowired
     OrderbyRepository repository;
 
+    @Override
     public void create (Orderby orderby) throws Exception {
         log.info("Orderby Service Create");
         repository.save(orderby);
-//        repository.save(name, size, id, place);
     }
 
+    @Override
+    public void remove (Orderby orderNo) throws Exception {
+        log.info("Orderby Service Remove");
+        repository.delete(orderNo);
+    }
+
+    @Override
     public List<Orderby> list (String place) throws Exception {
         log.info("Service Orederby List");
         log.info(place);

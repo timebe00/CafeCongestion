@@ -1,4 +1,4 @@
 export default {
-    idSt: "null",
-    adSt: "null"
+    idSt: "asd",
+    adSt: "asd"
 }

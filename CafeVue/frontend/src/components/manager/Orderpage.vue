@@ -2,10 +2,18 @@
   <div id="app">
     <v-app id="inspire">
       <div>
+        <br/><br/>
+        <v-btn @click="stopin()">Stop</v-btn>
         <v-data-table
             :headers="headers"
             :items="orderlist"
         >
+          <template v-slot:item.ok="{ item }">
+            <v-btn @click="okbtn(item.id)">확인</v-btn>
+          </template>
+          <template v-slot:item.tru="{ item }">
+            <v-icon @click="dle(item.orderNo)">mdi-delete</v-icon>
+          </template>
         </v-data-table>
       </div>
     </v-app>
@@ -25,6 +33,8 @@ export default {
       calories: '',
       places: 'a',
       testidx: '',
+      getinterval: '',
+      getponNum: '',
       orderlist: []
     }
   },
@@ -39,12 +49,11 @@ export default {
           sortable: false,
           value: 'orderNo',
         },
-        {
-          text: '주문',
-          value: 'orders'
-        },
+        { text: '주문', value: 'orders'},
         { text: '아이디', value: 'id' },
         { text: '크기', value: 'size' },
+        { text: '주문 확인', value: 'ok' },
+        { text: '삭제', value: 'tru' }
       ]
     },
   },
@@ -57,12 +66,30 @@ export default {
           .then(res => {
             this.orderlist = res.data
           })
+    },
+    okbtn (id) {
+      console.log("id : " + id)
+      let pho = 0
+      axios.post('http://localhost:1234/register/phonnum', {id})
+        .then(res => {
+          console.log(res.data.pn)
+          pho = res.data.pn
+        })
+
+      axios.get('http://localhost:7777/phone_msg_send', {pho})
+    },
+    dle (orderNo) {
+      axios.post('http://localhost:1234/orderby/remove', {orderNo})
+    },
+    stopin () {
+      console.log("stopin")
+      clearInterval(this.getinterval)
     }
   },
   mounted() {
     if (this.idSt != "null" && this.adSt != "null") {
       this.haveME()
-      setInterval(this.haveME, 5000)
+      this.getinterval = setInterval(this.haveME, 5000)
     }
     else {
       router.push("/")

@@ -40,6 +40,11 @@ public class OrderbyController {
         }
     }
 
+    @PostMapping("/remove")
+    public void remove(@Validated @RequestBody Orderby orderNo) throws Exception {
+        service.remove(orderNo);
+    }
+
     @PostMapping("/list")
     public ResponseEntity<List<Orderby>> orderlsit(@Validated @RequestBody HashMap<String, String> values) throws Exception {
         String place = values.get("place");
