@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="submit">
-    <div align="center">
+    <div align="center" class="basmargin">
       <h1 id="getTitle">로그인</h1>
       <table>
         <tr>

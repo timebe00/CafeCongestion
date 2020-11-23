@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div class="basmargin">
     <div id="map"></div>
   </div>
 </template>
@@ -127,7 +127,6 @@ export default {
 #map {
   width: 100vw;
   height: 92.9vh;
-  margin-top: 65px;
 }
 .overlaybox {
   position: relative;

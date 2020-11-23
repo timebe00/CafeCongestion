@@ -32,7 +32,7 @@
           </v-list-item-title>
         </v-list-item>
 
-        <v-list-item @click="$router.push('/')">
+        <v-list-item @click="$router.push('/menuupdata')">
           <v-list-item-title>
             메뉴수정
           </v-list-item-title>
@@ -85,5 +85,10 @@ export default {
   font-size: 17px;
   margin-right: 10px;
   background: lightskyblue;
+}
+.basmargin {
+  margin-top: 65px;
+  width: 100vw;
+  height: 92.9vh;
 }
 </style>

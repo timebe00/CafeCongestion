@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div class="basmargin">
     <v-app id="inspire">
       <div>
         <br/><br/>

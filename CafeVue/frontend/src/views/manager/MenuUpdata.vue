@@ -1,10 +1,16 @@
 <template>
-
+  <div>
+    <menu-plu/>
+  </div>
 </template>
 
 <script>
+import MenuPlu from "@/components/manager/MenuPlu";
 export default {
-name: "MenuUpdata"
+name: "MenuUpdata",
+  components: {
+    MenuPlu
+  }
 }
 </script>
 

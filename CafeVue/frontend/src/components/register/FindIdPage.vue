@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="submit">
-    <div align="center">
+    <div align="center" class="basmargin">
       <h1 id="getTitle">아이디 찾기</h1>
       <table>
         <tr>

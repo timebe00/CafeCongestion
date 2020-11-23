@@ -115,11 +115,11 @@ public class RegistrerServicelmpl implements RegisterService{
         return null;
     }
 
-    public Register getPlace(Register register) throws Exception {
-        log.info("Register Service Get Place");
+    public Register getNum(Register register) throws Exception {
+        log.info("Register Service Get Phon");
         if(register.getId().length() > 4 && Pattern.matches("^.*(([a-zA-Z])+).*$",register.getId())){
-            Register getplace = repository.findById(register.getId()).get(0);
-            return getplace;
+            Register getNum = repository.findById(register.getId()).get(0);
+            return getNum;
         }
         return null;
     }

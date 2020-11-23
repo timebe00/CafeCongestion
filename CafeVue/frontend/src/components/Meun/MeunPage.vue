@@ -1,14 +1,11 @@
 <template>
-  <div id="card">
+  <div id="card" class="basmargin">
     <ul id="HO">
       <ol
            v-for="i in item"
            :key="i.key">
         {{ i.name }}<br>
-        <p v-if="i.size === '1'" id="shsi">Tall</p>
-        <p v-else-if="i.size === '2'" id="shsi">Grande</p>
-        <p v-else id="shsi">Venti</p>
-<!--        {{ i.size === '1' }}-->
+        {{ i.size }}
         <v-btn v-on:click="removeitem(i.key)">취소</v-btn>
       </ol>
     </ul>
@@ -39,12 +36,12 @@
 
             <v-card-actions>
               Size :
-              <v-checkbox v-model="size[idx]" value="3" v-if="item.va === 123"/>
+              <v-checkbox v-model="size[idx]" value="Venti" v-if="item.va === 123"/>
               <p v-if="item.va===123">Venti</p>
-              <v-checkbox v-model="size[idx]" value="2" v-if="item.gr === 123"/>
-              <p v-if="item.gr===1">Grande</p>
-              <v-checkbox v-model="size[idx]" value="1" v-if="item.ta === 123"/>
-              <p v-if="item.ta===1">Tall</p>
+              <v-checkbox v-model="size[idx]" value="Grande" v-if="item.gr === 'Grande'"/>
+              <p v-if="item.gr=== 'Grande'">Grande</p>
+              <v-checkbox v-model="size[idx]" value="Tall" v-if="item.ta === 'Tall'"/>
+              <p v-if="item.ta==='Tall'">Tall</p>
               <v-btn v-on:click="PushCof(item.name, size[idx], idx, idSt, placeSW)">확인</v-btn>
             </v-card-actions>
         </v-card>

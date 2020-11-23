@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Menu from "../views/Menu.vue";
 import getOrder from "../views/manager/getOrder.vue";
+import MenuUpdata from "../views/manager/MenuUpdata.vue";
 
 import Login from "../views/register/Login.vue";
 import Register from "../views/register/Register.vue";
@@ -33,6 +34,11 @@ const routes = [
     path: "/order",
     name: "getOrder",
     component: getOrder
+  },
+  {
+    path: "/menuupdata",
+    name: "MenuUpdata",
+    component: MenuUpdata
   },
     /////////////////////////////////////////////////////////////////////
   {

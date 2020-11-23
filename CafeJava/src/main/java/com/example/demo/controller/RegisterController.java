@@ -111,14 +111,14 @@ public class RegisterController {
         }
     }
 
-    @PostMapping("/place")
-    public ResponseEntity<Register> place(@Validated @RequestBody Register register) throws Exception {
-        log.info("Controller Login");
-        Register getPlace;
-        getPlace = service.login(register);
+    @PostMapping("/phonnum")
+    public ResponseEntity<Register> phonnum(@Validated @RequestBody Register register) throws Exception {
+        log.info("Controller Phone Num");
+        Register num;
+        num = service.getNum(register);
 
-        if (getPlace != null) {
-            return new ResponseEntity<>(getPlace, HttpStatus.OK);
+        if (num != null) {
+            return new ResponseEntity<>(num, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
