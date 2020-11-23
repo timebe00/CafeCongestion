@@ -34,9 +34,9 @@ public class Menu {
     private int pr;
     //  싸이즈
     @Column(name = "va", nullable = true)
-    private int va;
+    private String va;
     @Column(name = "gr", nullable = true)
-    private int gr;
+    private String gr;
     @Column(name = "ta", nullable = true)
-    private int ta;
+    private String ta;
 }

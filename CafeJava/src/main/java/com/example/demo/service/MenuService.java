@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface MenuService {
     public Boolean create(Menu menu) throws Exception;
+    public void remove(Menu menuno) throws Exception;
     public List<Menu> show(String place) throws Exception;
 }

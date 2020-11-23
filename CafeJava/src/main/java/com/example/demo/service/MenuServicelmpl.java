@@ -23,6 +23,11 @@ public class MenuServicelmpl implements MenuService {
     }
 
     @Override
+    public void remove(Menu menuno) throws Exception {
+        repository.delete(menuno);
+    }
+
+    @Override
     public List<Menu> show(String place) throws Exception {
         log.info("Service Menu Show");
         return repository.findByPlace(place);
