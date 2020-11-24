@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class OrderbyServicelmpl implements OrderbyService {
     @Autowired
-    OrderbyRepository repository;
+    private OrderbyRepository repository;
 
     @Override
     public void create (Orderby orderby) throws Exception {

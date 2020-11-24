@@ -5,9 +5,18 @@
 </template>
 <script>
 import router from '../../router'
+import axios from "axios";
 
 export default {
-  mounted() {
+  async mounted() {
+    await axios.post('http://localhost:1234/place/getList')
+        .then(res => {
+          console.log("res.data : " + res.data)
+          console.log(res.data[1].place)
+          for (let i = 0; i < res.data.length; i++) {
+            this.place[i] = res.data[i].place
+          }
+        })
     if (window.kakao && window.kakao.maps) {
       this.initMap();
     } else {
@@ -18,6 +27,9 @@ export default {
       document.head.appendChild(script);
     }
   },
+  data: () => ({
+    place: []
+  }),
   methods: {
     initMap() {
       let infowindow = new kakao
@@ -32,7 +44,11 @@ export default {
       let map = new kakao.maps.Map(mapContainer, mapOption);
       //장소 검색 객체를 생성합니다.
       let ps = new kakao.maps.services.Places(map);
-      ps.keywordSearch('커피빈 종각역점', placesSearchCB);
+      for(let i = 0; i<this.place.length; i++)
+      {
+        ps.keywordSearch(this.place[i], placesSearchCB);
+      }
+      // ps.keywordSearch('커피빈 종각역점', placesSearchCB);
       // ps.keywordSearch('종각 비트캠프', placesSearchCB);
       // ps.keywordSearch('커피빈 종각역점', placesSearchCB);
       // ps.keywordSearch('종각역 카페', placesSearchCB);
@@ -44,11 +60,9 @@ export default {
           let bounds = new kakao
               .maps
               .LatLngBounds();
-          for (let i = 0; i < data.length; i++) {
-            let randomNum = Math.random() * 10 + 1
-            displayMarker(data[i], randomNum);
-            bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
-          }
+          let randomNum = Math.random() * 10 + 1
+          displayMarker(data[0], randomNum);
+          bounds.extend(new kakao.maps.LatLng(data[0].y, data[0].x));
           // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
           map.setBounds(bounds);
         }
@@ -90,11 +104,6 @@ export default {
             '            <span class="title">혼잡도</span>' +
             '           </li>' +
             '        </a>' +
-            '        <a id = "txt2">' +
-            '           <li>' +
-            '               <span class="title">즐겨찾기</span>' +
-            '           </li>' +
-            '        </a>' +
             '        <a id = "showMenu">' +
             '           <li>' +
             '               <span class="title">주문</span>' +
@@ -110,11 +119,11 @@ export default {
               infowindow.setContent(content);
               infowindow.open(map, marker)
               let btn1 = document.getElementById("showPeople");
-              let btn3 = document.getElementById("showMenu");
+              let btn2 = document.getElementById("showMenu");
               btn1.onclick = function () {
                 window.open('http://localhost:1234/opencv/'+place2)
               }
-              btn3.onclick = function () {
+              btn2.onclick = function () {
                 router.push({name: 'Menu', params: {'place': place.place_name}});
               }
             });

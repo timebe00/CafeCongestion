@@ -20,7 +20,7 @@ public class CongestionController {
     }
 
     @ResponseBody
-    @PostMapping("CVpeople")
+    @PostMapping("/CVpeople")
     public void testurl(@RequestBody HashMap<String, String> values) throws Exception {
         int people = Integer.valueOf(values.get("value"));
         String place = values.get("plack");

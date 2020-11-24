@@ -123,6 +123,14 @@ public class RegistrerServicelmpl implements RegisterService{
         }
         return null;
     }
+
+    @Override
+    public void uplodPl(Register register) throws Exception {
+        log.info("Register Service Up Lod Place");
+        Register upLode = repository.findById(register.getId()).get(0);
+        upLode.setPw(register.getAd());
+        repository.save(upLode);
+    }
 }
 
 /*

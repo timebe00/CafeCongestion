@@ -2,10 +2,9 @@
   <div class="basmargin">
     <v-col>
       <v-row>
-        메뉴 이름<input type="text" v-model="name" class="block"/>
-      </v-row>
-      <v-row>
-        가격<input type="text" v-model="pr" class="block"/>
+        <p></p>
+        <p>메뉴 이름</p><input type="text" v-model="name" class="block"/>
+        <p>가격</p><input type="text" v-model="pr" class="block"/>
       </v-row>
         <file-pond
             name="bin"
@@ -25,14 +24,15 @@
     <v-data-table
       :headers="headers"
       :items="menulist"
+      align="center"
     >
       <template v-slot:item.size="{ item }">
-        <span v-if="item.va != 'null'">{{ item.va }}, </span>
-        <span v-if="item.gr != 'null'">{{ item.gr }}, </span>
-        <span v-if="item.ta != 'null'">{{ item.ta }}</span>
+        <span v-if="item.ta != 'null'">{{ item.ta }}   </span>
+        <span v-if="item.gr != 'null'">{{ item.gr }}   </span>
+        <span v-if="item.va != 'null'">{{ item.va }}</span>
       </template>
       <template v-slot:item.tru="{ item }">
-        <v-icon @click="dle(item.menuno)">mdi-delete</v-icon>
+        <v-icon @click="dle(item.menuNo)">mdi-delete</v-icon>
       </template>
     </v-data-table>
   </div>
@@ -59,16 +59,32 @@ export default {
       return [
         {
           text: '메뉴 이름',
-          align: 'start',
+          align: 'center',
           sortable: false,
-          value: 'name',
+          width: '35%',
+          value: 'name'
         },
         {
           text: '가격',
+          align: 'center',
+          sortable: false,
+          width: '25%',
           value: 'pr'
         },
-        { text: 'SIZE', value: 'size' },
-        { text: '삭제', value: 'tru' }
+        {
+          text: 'SIZE',
+          align: 'center',
+          sortable: false,
+          width: '25%',
+          value: 'size'
+        },
+        {
+          text: '삭제',
+          align: 'center',
+          sortable: false,
+          width: '15%',
+          value: 'tru'
+        }
       ]
     }
   },
@@ -78,8 +94,6 @@ export default {
       ta: '',
       va: '',
       gr: '',
-      pathing: `../../assets/CafeMenu/아메리카노.png`,
-      amk: "아메리카노.png",
       server: {
         url: 'http://localhost:1234/menu',
         process: {
@@ -94,8 +108,13 @@ export default {
     }
   },
   methods: {
-    dle (menuno) {
-      axios.post('http://localhost:1234/menu/remove', {menuno})
+    dle (menuNo) {
+
+
+
+      console.log("menuNo : " + menuNo)
+      axios.post('http://localhost:1234/menu/remove', {menuNo})
+        .then(router.push("/menu/voidpage"))
     },
     filepath (name, pr, ta, gr, va) {
       const file = this.$refs.pond.getFile()
@@ -122,8 +141,8 @@ export default {
 }
 </script>
 
-<style scoped>
-div {
-  border: 1px solid black
+<style>
+.text-center{
+  text-align: center;
 }
 </style>

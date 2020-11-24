@@ -22,8 +22,8 @@ name: "MenuUpdata",
       axios.post('http://localhost:1234/menu/create', { gr, imgN, name, place, pr, ta, va })
         .then(res => {
           console.log(res)
-          router.push("/menuupdata")
         })
+      router.push("/menu/voidpage")
     }
   }
 }

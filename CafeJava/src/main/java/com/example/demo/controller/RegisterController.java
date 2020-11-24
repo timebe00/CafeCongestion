@@ -123,4 +123,10 @@ public class RegisterController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
     }
+
+    @PostMapping("/placeupdata")
+    public void placeupdata(@Validated @RequestBody Register register) throws Exception {
+        log.info("Controller Place Updata");
+
+    }
 }

@@ -18,7 +18,9 @@
             v-for="(item, idx) in menu"
             :key="item.menuNo"
           >
-          <v-img :src="require(`@/assets/CafeMenu/`+item.imgN)" height="200px"></v-img>
+          <div id="test">
+            <v-img :src="require(`@/assets/CafeMenu/`+item.imgN)" id="menuimg"></v-img>
+          </div>
 <!--          <v-img src="@/assets/CafeMenu/아메리카노.png" height="200px"></v-img>-->
           <v-card-title>{{ item.name }}</v-card-title>
           <v-card-subtitle>{{ item.pr }}</v-card-subtitle>

@@ -17,21 +17,25 @@ public class MenuServicelmpl implements MenuService {
     private MenuRepository repository;
 
     @Override
-    public Boolean create(Menu menu) throws Exception {
+    public void create(Menu menu) throws Exception {
         repository.save(menu);
-        return true;
     }
 
     @Override
     public void remove(Menu menuno) throws Exception {
-        repository.delete(menuno);
+        List<Menu> menus = repository.findByMenuNo(menuno.getMenuNo());
+
+        if(menus.size() == 1){
+            Menu menu = menus.get(0);
+            repository.delete(menu);
+        }
     }
 
     @Override
     public List<Menu> show(String place) throws Exception {
         log.info("Service Menu Show");
         return repository.findByPlace(place);
-
+    }
 //        log.info(String.valueOf(test));
 //        return test;
 //        return repository.show(place);
@@ -43,6 +47,4 @@ public class MenuServicelmpl implements MenuService {
 //        repository.save(obj);
 
 //        repository.save(obj);
-
-    }
 }

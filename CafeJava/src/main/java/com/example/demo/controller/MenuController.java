@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.Menu;
-import com.example.demo.entity.Register;
 import com.example.demo.service.MenuService;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +30,7 @@ public class MenuController {
     private MenuService service;
 
     @PostMapping("/create")
-    public void create(@Validated @RequestBody Menu menu) throws Exception {
+    public ResponseEntity create(@Validated @RequestBody Menu menu) throws Exception {
         log.info("menu.getGr() : " + menu.getGr());
         log.info("menu.getImgN() : " + menu.getImgN());
         log.info("menu.getName() : " + menu.getName());
@@ -40,6 +39,7 @@ public class MenuController {
         log.info("menu.getTa() : " + menu.getTa());
         log.info("menu.getVa() : " + menu.getVa());
         service.create(menu);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("/show")
@@ -53,8 +53,10 @@ public class MenuController {
     }
 
     @PostMapping("/remove")
-    public void remove(@Validated @RequestBody Menu menuno) throws Exception {
-        service.remove(menuno);
+    public ResponseEntity remove(@Validated @RequestBody Menu menuNo) throws Exception {
+        log.info("menuno : " + menuNo);
+        service.remove(menuNo);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @PostMapping("/file")
@@ -92,7 +94,7 @@ public class MenuController {
     }
 //
     @PostMapping("/fileremove")
-    public void fileremove(@RequestBody String path) throws Exception
+    public ResponseEntity fileRemove(@RequestBody String path) throws Exception
     {
         log.info("path : " + path);
         if(path != null) {
@@ -102,6 +104,7 @@ public class MenuController {
                 f.delete();
             }
         }
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

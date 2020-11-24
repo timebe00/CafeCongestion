@@ -1,4 +1,4 @@
 export default {
     idSt: "asd",
-    adSt: "asd"
+    adSt: "커피빈 종각역점"
 }

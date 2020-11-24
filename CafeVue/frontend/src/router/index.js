@@ -1,9 +1,11 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
+import AddPlace from "../views/AddPlace.vue";
 import Menu from "../views/Menu.vue";
 import getOrder from "../views/manager/getOrder.vue";
 import MenuUpdata from "../views/manager/MenuUpdata.vue";
+import voidpage from "../views/manager/voidpage.vue";
 
 import Login from "../views/register/Login.vue";
 import Register from "../views/register/Register.vue";
@@ -78,6 +80,16 @@ const routes = [
     path: '/login/havepw',
         name: 'HavePw',
       component: HavePw
+  },
+  {
+    path: '/admin/addplace',
+    name: 'AddPlace',
+    component: AddPlace
+  },
+  {
+    path: '/menu/voidpage',
+    name: 'voidpage',
+    component: voidpage
   }
 ];
 

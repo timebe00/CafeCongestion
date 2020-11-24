@@ -11,4 +11,5 @@ public interface RegisterService {
     public Boolean uplodPw(Register register) throws Exception;
     public Register login(Register register) throws Exception;
     public Register getNum(Register register) throws Exception;
+    public void uplodPl(Register register) throws Exception;
 }
