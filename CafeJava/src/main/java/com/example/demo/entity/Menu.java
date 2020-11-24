@@ -22,7 +22,7 @@ public class Menu {
     @Column(name = "menuno")
     private Long menuNo;
     //  이미지 이름
-    @Column(name = "imgN", nullable = false)
+    @Column(name = "imgn", nullable = false)
     private String imgN;
     //  메뉴 이름
     @Column(name = "name", nullable = false)

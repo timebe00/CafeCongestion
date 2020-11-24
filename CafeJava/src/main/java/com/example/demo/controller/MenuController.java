@@ -31,8 +31,15 @@ public class MenuController {
     private MenuService service;
 
     @PostMapping("/create")
-    public Boolean create(@Validated @RequestBody Menu menu) throws Exception {
-        return service.create(menu);
+    public void create(@Validated @RequestBody Menu menu) throws Exception {
+        log.info("menu.getGr() : " + menu.getGr());
+        log.info("menu.getImgN() : " + menu.getImgN());
+        log.info("menu.getName() : " + menu.getName());
+        log.info("menu.getPlace() : " + menu.getPlace());
+        log.info("menu.getPr() : " + menu.getPr());
+        log.info("menu.getTa() : " + menu.getTa());
+        log.info("menu.getVa() : " + menu.getVa());
+        service.create(menu);
     }
 
     @PostMapping("/show")
@@ -75,7 +82,7 @@ public class MenuController {
                 folder.mkdirs();
             }
 
-            File file = new File(filePath + File.separator + "asd" + fileTeg);
+            File file = new File(filePath + File.separator + fileTeg);
             fil.transferTo(file);
 
             return new ResponseEntity<String>(file.getAbsolutePath(),HttpStatus.OK);

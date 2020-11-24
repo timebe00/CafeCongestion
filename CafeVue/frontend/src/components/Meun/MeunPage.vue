@@ -1,6 +1,6 @@
 <template>
   <div id="card" class="basmargin">
-    <ul id="HO">
+    <ul class="HO">
       <ol
            v-for="i in item"
            :key="i.key">
@@ -9,6 +9,7 @@
         <v-btn v-on:click="removeitem(i.key)">취소</v-btn>
       </ol>
     </ul>
+    <v-btn v-on:click="Order()" class="HO">주문하기</v-btn>
     <div id="MU">
       <v-row>
           <v-card
@@ -17,10 +18,8 @@
             v-for="(item, idx) in menu"
             :key="item.menuNo"
           >
-          <v-img
-              src="@/assets/CafeMenu/아메리카노.png"
-              height="200px"
-          ></v-img>
+          <v-img :src="require(`@/assets/CafeMenu/`+item.imgN)" height="200px"></v-img>
+<!--          <v-img src="@/assets/CafeMenu/아메리카노.png" height="200px"></v-img>-->
           <v-card-title>{{ item.name }}</v-card-title>
           <v-card-subtitle>{{ item.pr }}</v-card-subtitle>
           <v-card-actions>
@@ -36,8 +35,8 @@
 
             <v-card-actions>
               Size :
-              <v-checkbox v-model="size[idx]" value="Venti" v-if="item.va === 123"/>
-              <p v-if="item.va===123">Venti</p>
+              <v-checkbox v-model="size[idx]" value="Venti" v-if="item.va === 'Venti'"/>
+              <p v-if="item.va==='Venti'">Venti</p>
               <v-checkbox v-model="size[idx]" value="Grande" v-if="item.gr === 'Grande'"/>
               <p v-if="item.gr=== 'Grande'">Grande</p>
               <v-checkbox v-model="size[idx]" value="Tall" v-if="item.ta === 'Tall'"/>
@@ -47,7 +46,6 @@
         </v-card>
       </v-row>
     </div>
-    <v-btn v-on:click="Order()">주문하기</v-btn>
   </div>
 </template>
 
@@ -63,7 +61,8 @@ export default {
     item: [],
     k: 0,
     TF: true,
-    dialog3: false
+    dialog3: false,
+    imgN: []
   }),
   computed: {
     ...mapState(["idSt"])
@@ -109,9 +108,12 @@ export default {
       .then(res => {
         console.log("성공")
         console.log(res.data.length)
+        console.log(res.data)
         for(let i = 0; i<res.data.length; i++)
         {
           this.size[i] = ''
+          this.imgN[i] = res.data[i].imgN
+          console.log(this.imgN[i])
         }
         this.menu = res.data
       })
@@ -127,7 +129,7 @@ export default {
   margin-top: 85px;
   margin-left: 65px;
 }
-#HO {
+.HO {
   position: sticky;
   float: right;
   width: 15vw;

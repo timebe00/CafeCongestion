@@ -20,8 +20,7 @@
         Grande<v-checkbox v-model="gr" value="Grande"/>
         Venti<v-checkbox v-model="va" value="Venti"/>
       </v-row>
-      <v-btn @click="filepath()">확인</v-btn>
-      <v-img v-bind:src="'@/assets/CafeMenu/'+pathing"/>
+      <v-btn @click="filepath(name, pr, ta, gr, va)">확인</v-btn>
     </v-col>
     <v-data-table
       :headers="headers"
@@ -45,6 +44,7 @@ import axios from "axios";
 import vueFilePond from 'vue-filepond'
 import 'filepond/dist/filepond.min.css'
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type'
+import {mapState} from 'vuex'
 
 const FilePond = vueFilePond(FilePondPluginFileValidateType)
 export default {
@@ -53,6 +53,8 @@ export default {
     FilePond
   },
   computed: {
+    ...mapState(['idSt']),
+    ...mapState(['adSt']),
     headers () {
       return [
         {
@@ -76,7 +78,8 @@ export default {
       ta: '',
       va: '',
       gr: '',
-      pathing: '아메리카노.png',
+      pathing: `../../assets/CafeMenu/아메리카노.png`,
+      amk: "아메리카노.png",
       server: {
         url: 'http://localhost:1234/menu',
         process: {
@@ -94,13 +97,12 @@ export default {
     dle (menuno) {
       axios.post('http://localhost:1234/menu/remove', {menuno})
     },
-    filepath (nick) {
-      console.log("nick" + nick + " : echo")
+    filepath (name, pr, ta, gr, va) {
       const file = this.$refs.pond.getFile()
-      console.log("file : " + file)
-      console.log(file)
-      console.log("file Server Id : " + file.serverId)
-      this.pathing = file.serverId
+      let imgN = file.filename
+      console.log("imgn : " + imgN)
+      let place = this.adSt
+      this.$emit('menuset', {gr, imgN, name, place, pr, ta, va})
     }
   },
   async mounted() {
