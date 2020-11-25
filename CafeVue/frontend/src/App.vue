@@ -19,7 +19,6 @@
         temporary
     >
       <v-list-item-group
-          v-model="group"
           active-class="deep-purple--text text--accent-4"
       >
 
@@ -91,7 +90,7 @@ export default {
   width: 100vw;
   height: 92.9vh;
 }
-div {
-  border: 1px solid black;
-}
+/*div {*/
+/*  border: 1px solid black;*/
+/*}*/
 </style>

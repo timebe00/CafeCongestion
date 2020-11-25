@@ -77,7 +77,7 @@ public class MenuController {
             String fileTeg = original;
 
 //            String filePath = "D:\\Git\\Bitcamp\\Project\\soproj1\\pythonwork";
-            String filePath = "/home/bitai/proj/CafeCongestion/CafeVue/frontend/src/assets/CafeMenu";
+            String filePath = "/home/bitai/proj/BitAi/CafeCongestion/CafeVue/frontend/src/assets/CafeMenu";
             File folder = new File(filePath);
 
             if(!folder.exists()){

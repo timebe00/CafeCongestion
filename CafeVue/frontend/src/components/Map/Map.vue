@@ -12,7 +12,7 @@ export default {
     await axios.post('http://localhost:1234/place/getList')
         .then(res => {
           console.log("res.data : " + res.data)
-          console.log(res.data[1].place)
+          console.log(res.data[0].place)
           for (let i = 0; i < res.data.length; i++) {
             this.place[i] = res.data[i].place
           }

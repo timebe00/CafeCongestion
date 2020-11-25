@@ -2,9 +2,8 @@
   <div class="basmargin">
     <v-col>
       <v-row>
-        <p></p>
         <p>메뉴 이름</p><input type="text" v-model="name" class="block"/>
-        <p>가격</p><input type="text" v-model="pr" class="block"/>
+        <p>가격</p><input type="number" v-model="pr" class="block"/>
       </v-row>
         <file-pond
             name="bin"
@@ -15,7 +14,7 @@
             :server="server"
         />
       <v-row>
-        Tall<v-checkbox v-model="ta" value="Tall" class="mr">Tall</v-checkbox>
+        Tall<v-checkbox v-model="ta" value="Tall"/>
         Grande<v-checkbox v-model="gr" value="Grande"/>
         Venti<v-checkbox v-model="va" value="Venti"/>
       </v-row>
@@ -94,6 +93,8 @@ export default {
       ta: '',
       va: '',
       gr: '',
+      name: '',
+      pr:'',
       server: {
         url: 'http://localhost:1234/menu',
         process: {
