@@ -70,7 +70,7 @@ URL = "http://industrial.api.ubidots.com"
 URL2 = "http://localhost:1234/CVpeople"
 INDUSTRIAL_USER = True
 # TOKEN = "YOUR_TOKEN"
-TOKEN = "BBFF-clQxacmiEzAx69VJTIXR5TdEDst3WZ"
+TOKEN = "BBFF-ZMaRbp5wrwP7QxUEmZQd6Uz3YzA8Wr"
 DEVICE = "camera"
 VARIABLE = "people"
 # In[4]:
@@ -97,7 +97,7 @@ def send(token, device, variable, value, industrial=True):
         time.sleep(1)
     return req
 def SpSend(value, industrial=True):
-    place = "asd"
+    place = "비트켐프"
     url = URL2
     payload = buildPayload2(place, value)
     req = requests.post(url=url, json=payload)
