@@ -1,13 +1,15 @@
 package com.example.demo.controller;
 
+import com.example.demo.nativeinterface.uart.UartSpring;
 import com.example.demo.socket.GetLocalHost;
 import com.example.demo.socket.SocketClient;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.UnknownHostException;
+import java.util.HashMap;
 
 import static java.lang.Thread.sleep;
 
@@ -62,19 +64,20 @@ public class GSMController {
         return "gsm";
     }
 
-    @GetMapping("/phone_msg_send")
-    public String phone_msg_send(String num) throws InterruptedException, UnknownHostException {
+    @PostMapping("/phone_msg_send")
+    public String phone_msg_send(@Validated @RequestBody HashMap num) throws InterruptedException, UnknownHostException {
         log.info("phone_msg_send()");
         log.info("num : " + num);
-        String phoneNum = "01040826312";
-//        String phoneNum = "01029807183";
+        log.info("num Hash : " + num.get("pho"));
+//        String phoneNum = "01040826312";
+        String phoneNum = (String)num.get("pho");
         //String phoneNum = "01072400150";
         String phoneMsg = "Come!";
 
         sc.sendData(2, 1, phoneNum, phoneMsg);
         sleep(1000);
 
-        //log.info(UartSpring.phone_msg_send(phoneNum, phoneMsg));
+        log.info(UartSpring.phone_msg_send(phoneNum, phoneMsg));
 
         return "gsm";
     }
