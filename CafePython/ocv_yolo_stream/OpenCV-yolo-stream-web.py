@@ -97,7 +97,7 @@ def send(token, device, variable, value, industrial=True):
         time.sleep(1)
     return req
 def SpSend(value, industrial=True):
-    place = "비트켐프"
+    place = "비트캠프 종로센터"
     url = URL2
     payload = buildPayload2(place, value)
     req = requests.post(url=url, json=payload)
