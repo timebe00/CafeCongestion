@@ -15,9 +15,10 @@ name: "AddPlace",
     okbtn (id, place) {
       console.log("id : " + id)
       console.log("place : " + place)
-      // let ad = place
+      let ad = place
+      console.log("ad : " + ad)
       axios.post("http://localhost:1234/place/placecreate", {id, place})
-      // axios.post("http://localhost:1234/register/placeupdata", {id, ad})
+      axios.post("http://localhost:1234/register/placeupdata", {id, ad})
     }
   },
   data: () => ({

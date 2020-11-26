@@ -11,7 +11,7 @@ export default {
         commit(SETID, idAc)
     },
     getAdAc ({ commit }, adAc) {
-        console.log(adAc)
+        console.log("getAdAc : " + adAc)
         commit(SETAD, adAc)
     }
 }

@@ -46,7 +46,7 @@ export default {
       let ps = new kakao.maps.services.Places(map);
       for(let i = 0; i<this.place.length; i++)
       {
-        ps.keywordSearch(this.place[i], placesSearchCB);
+        ps.keywordSearch(this.place[i], placesSearchCB, 1);
       }
       // ps.keywordSearch('커피빈 종각역점', placesSearchCB);
       // ps.keywordSearch('종각 비트캠프', placesSearchCB);
@@ -54,7 +54,7 @@ export default {
       // ps.keywordSearch('종각역 카페', placesSearchCB);
       // 키워드 검색 완료 시 호출되는 콜백함수 입니다
       // eslint-disable-next-line no-unused-vars
-      function placesSearchCB(data, status, pagination) {
+      function placesSearchCB(data, status, pagination, num) {
         if (status === kakao.maps.services.Status.OK) {
           // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해 LatLngBounds 객체에 좌표를 추가합니다
           let bounds = new kakao
@@ -67,15 +67,31 @@ export default {
           map.setBounds(bounds);
         }
       }
-      function displayMarker(place, randomNum) {
+      async function displayMarker(place, randomNum) {
         // 마커를 생성하고 지도에 표시합니다
         let imageSrc = ''
-        if (randomNum > 3 && randomNum < 7) {
+        let num = false
+        if (place.place_name === '비트캠프 종로센터') {
+          console.log('place : ' + place)
+          const pl = place.place_name
+          await axios.post('http://localhost:1234/getpeople', {pl})
+              .then(res => {
+                console.log("res.data : " + res.data)
+                console.log(res.data)
+                randomNum = res.data
+                console.log(randomNum)
+                num = true
+              })
+        }
+        if (num) {
+          console.log('ran : ' + randomNum)
+        }
+        if (randomNum < 3) {
           imageSrc = require("@/assets/cafeImage/cafe1.png")
-        } else if (randomNum > 7) {
-          imageSrc = require("@/assets/cafeImage/cafe3.png")
-        } else {
+        } else if (randomNum < 6) {
           imageSrc = require("@/assets/cafeImage/cafe2.png")
+        } else {
+          imageSrc = require("@/assets/cafeImage/cafe3.png")
         }
         let imageSize = new kakao.maps.Size(65, 65)
         let markerPositon = new kakao.maps.LatLng(place.y, place.x),
@@ -121,7 +137,7 @@ export default {
               let btn1 = document.getElementById("showPeople");
               let btn2 = document.getElementById("showMenu");
               btn1.onclick = function () {
-                window.open('http://localhost:1234/opencv/'+place2)
+                window.open('http://localhost:1234/opencv/' + place2)
               }
               btn2.onclick = function () {
                 router.push({name: 'Menu', params: {'place': place.place_name}});

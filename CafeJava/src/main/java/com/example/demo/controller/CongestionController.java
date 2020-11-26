@@ -2,6 +2,8 @@ package com.example.demo.controller;
 
 
 import lombok.extern.java.Log;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,11 +23,22 @@ public class CongestionController {
 
     @ResponseBody
     @PostMapping("/CVpeople")
-    public void testurl(@RequestBody HashMap<String, String> values) throws Exception {
+    public void CVpeople(@RequestBody HashMap<String, String> values) throws Exception {
         int people = Integer.valueOf(values.get("value"));
         String place = values.get("plack");
         log.info(String.valueOf(people));
         log.info(place);
         this.people.put(place, people);
+    }
+
+    @ResponseBody
+    @PostMapping("/getpeople")
+    public ResponseEntity<Integer> getpeople(@RequestBody HashMap<String ,String> place) throws Exception {
+        log.info("place : " + place);
+        String Myplace = place.get("pl");
+        log.info("Myplace : " + Myplace);
+        int peopleNum = people.get(Myplace);
+        log.info("peopleNum : " + peopleNum);
+        return new ResponseEntity<>(peopleNum ,HttpStatus.OK);
     }
 }

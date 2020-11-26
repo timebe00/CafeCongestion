@@ -67,16 +67,17 @@ export default {
             this.orderlist = res.data
           })
     },
-    okbtn (id) {
+    async okbtn (id) {
       console.log("id : " + id)
-      let pho = 0
-      axios.post('http://localhost:1234/register/phonnum', {id})
+      let pho = ''
+      await axios.post('http://localhost:1234/register/phonnum', {id})
         .then(res => {
           console.log(res.data.pn)
           pho = res.data.pn
         })
+      console.log('pho : ' + pho)
 
-      axios.get('http://localhost:7777/phone_msg_send', {pho})
+      axios.post('http://localhost:1234/phone_msg_send', {pho})
     },
     dle (orderNo) {
       axios.post('http://localhost:1234/orderby/remove', {orderNo})
