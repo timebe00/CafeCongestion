@@ -60,7 +60,7 @@
     //  점 찍기
     //recy()
     function recy () {
-        axios.get('http://localhost:7777/getlidar').then(res => {
+        axios.get('http://localhost:1234/getlidar').then(res => {
             rs_angle = res.data.key_angle
             rs_dist = res.data.key_dist
             console.log(rs_dist)
