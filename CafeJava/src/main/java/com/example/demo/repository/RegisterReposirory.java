@@ -13,9 +13,9 @@ public interface RegisterReposirory extends JpaRepository<Register, Long> {
     //  닉네임 중복확인
     boolean existsByNn(String nn);
     //  아이디 찾기
-    List<Register> findByNameAndPn(String name, int pn);
+    List<Register> findByNameAndPn(String name, String pn);
     //  비밀번호 찾기
-    List<Register> findByNameAndIdAndPn(String name, String id, int pn);
+    List<Register> findByNameAndIdAndPn(String name, String id, String pn);
     //  로그인
     List<Register> findByIdAndPw(String id, String pw);
     //  아이디 업로드

@@ -125,8 +125,10 @@ public class RegisterController {
     }
 
     @PostMapping("/placeupdata")
-    public void placeupdata(@Validated @RequestBody Register register) throws Exception {
+    public ResponseEntity placeupdata(@Validated @RequestBody Register register) throws Exception {
         log.info("Controller Place Updata");
+        service.uplodPl(register);
+        return new ResponseEntity(HttpStatus.OK);
 
     }
 }

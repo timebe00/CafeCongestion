@@ -22,6 +22,8 @@ export default {
             if(res.status === 200) {
               alert('회원가입 성공')
               router.push('/login')
+            } else {
+              alert('정보를 바르게 입력해 주세요')
             }
           })
 

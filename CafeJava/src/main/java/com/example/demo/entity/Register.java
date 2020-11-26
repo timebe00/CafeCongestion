@@ -38,5 +38,5 @@ public class Register {
     private String ad;
     //  Phone Number
     @Column(name = "pn", nullable = false)
-    private int pn;
+    private String pn;
 }
