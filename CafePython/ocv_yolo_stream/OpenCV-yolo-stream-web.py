@@ -69,9 +69,7 @@ streams = streamlink.streams(url)
 URL = "http://industrial.api.ubidots.com"
 URL2 = "http://localhost:1234/CVpeople"
 INDUSTRIAL_USER = True
-# TOKEN = "YOUR_TOKEN"
-# TOKEN = "BBFF-ZMaRbp5wrwP7QxUEmZQd6Uz3YzA8Wr"
-TOKEN = "BBFF-clQxacmiEzAx69VJTIXR5TdEDst3WZ"
+TOKEN = "ubidots token"
 DEVICE = "camera"
 VARIABLE = "people"
 # In[4]:
