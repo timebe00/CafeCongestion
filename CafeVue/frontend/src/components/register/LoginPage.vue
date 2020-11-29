@@ -1,32 +1,34 @@
 <template>
   <form @submit.prevent="submit">
     <div align="center" class="basmargin">
-      <h1 id="getTitle">로그인</h1>
+      <p id="getTitle">로그인</p>
       <table>
         <tr>
-          <td>아이디</td>
-          <td><input type="text" v-model="id" class="block"></td>
+          <td class ="LoginClass1">아이디</td>
+          <td><input type="text" v-model="id" class="block" id="Loginid1" label="aadsf"></td>
         </tr>
         <tr>
-          <td>비밀번호</td>
-          <td><input type="password" v-model="pw" class="block"></td>
+          <td class ="LoginClass1">비밀번호</td>
+          <td><input type="password" v-model="pw" class="block" id="Loginid2"></td>
         </tr>
       </table>
 
       <table>
         <tr>
           <td>
-            <button @click="login" class="block">로그인</button>
+            <button @click="login" class="block" id="Loginid3">로그인</button>
           </td>
           <td>
-            <button @click="$router.push('/')" class="block">취소</button>
+            <button @click="$router.push('/')" class="block" id="Loginid4">취소</button>
           </td>
         </tr>
       </table>
       <table>
         <tr>
           <td><a @click="$router.push('/register')">회원가입</a></td>
+          <td><a>|</a></td>
           <td><a @click="$router.push('/login/findid')">아이디 찾기</a></td>
+          <td><a>|</a></td>
           <td><a @click="$router.push('/login/findpw')">비밀번호 찾기</a></td>
         </tr>
       </table>
@@ -58,6 +60,7 @@ export default {
 <style>
 #getTitle {
   margin-top: 10%;
+  font-size: 50px;
 }
 
 table {
@@ -75,5 +78,25 @@ button {
 
 .block {
   border: solid 1px black;
+}
+
+.LoginClass1 {
+  font-size: 30px;
+}
+#Loginid1 {
+  height: 30px;
+  width: 300px;
+}
+#Loginid2 {
+  height: 30px;
+  width: 300px;
+}
+#Loginid3 {
+  height: 30px;
+  width: 200px;
+}
+#Loginid4 {
+  height: 30px;
+  width: 200px;
 }
 </style>

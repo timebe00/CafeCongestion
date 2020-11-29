@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @Log
 @RestController
 @RequestMapping("/register")
-@CrossOrigin(origins = "http://localhost:8080", allowedHeaders = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class RegisterController {
     @Autowired
     private RegisterService service;

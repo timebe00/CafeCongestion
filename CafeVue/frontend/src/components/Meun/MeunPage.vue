@@ -9,19 +9,20 @@
         <v-btn v-on:click="removeitem(i.key)">취소</v-btn>
       </ol>
     </ul>
-    <v-btn v-on:click="Order()" class="HO">주문하기</v-btn>
+    <v-btn v-on:click="Order()" class="HO" id="orderokbtn">주문하기</v-btn>
     <div id="MU">
       <v-row>
           <v-card
+              id="menucard"
             class="mx-auto"
             max-width="344"
             v-for="(item, idx) in menu"
             :key="item.menuNo"
           >
-          <div id="test">
+          <div id="menuimge">
             <v-img :src="require(`@/assets/CafeMenu/`+item.imgN)" id="menuimg"></v-img>
           </div>
-<!--          <v-img src="@/assets/CafeMenu/아메리카노.png" height="200px"></v-img>-->
+<!--          <v-img src="@/assets/CafeMenu/아메리카노.jpg" height="200px"></v-img>-->
           <v-card-title>{{ item.name }}</v-card-title>
           <v-card-subtitle>{{ item.pr }}</v-card-subtitle>
           <v-card-actions>
@@ -140,5 +141,19 @@ export default {
 }
 #MU {
   width: 75vw;
+}
+#menuimge {
+  width: 270px;
+  height: 300px;
+}
+#menucard {
+  width: 280px;
+  margin-left: 15px;
+  border: 0.5px solid black;
+  margin-top: 20px;
+}
+#orderokbtn {
+  margin-top: 20px;
+  background: gainsboro;
 }
 </style>

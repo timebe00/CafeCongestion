@@ -4,38 +4,38 @@
       <h1 id="getTitle">회원가입</h1>
       <table>
         <tr>
-          <td>이름</td>
-          <td><input type="text" v-model="name" class="block"></td>
+          <td class="LoginClass1">이름</td>
+          <td><input type="text" v-model="name" class="block" id="reg1"></td>
         </tr>
         <tr>
-          <td>아이디</td>
-          <td><input type="text" v-model="id" class="block"></td>
+          <td class="LoginClass1">아이디</td>
+          <td><input type="text" v-model="id" class="block" id="reg2"></td>
           <td>
-            <button @click="clickUse(id)" class="block">중복확인</button>
+            <button @click="clickUse(id)" class="block" id="hdlod1">중복확인</button>
           </td>
         </tr>
         <tr>
-          <td>비밀번호</td>
-          <td><input type="password" v-model="pw" class="block"></td>
+          <td class="LoginClass1">비밀번호</td>
+          <td><input type="password" v-model="pw" class="block" id="reg3"></td>
         </tr>
         <tr>
-          <td>닉네임</td>
-          <td><input type="text" v-model="nn" class="block"></td>
-          <td><button @click="clickUseNick(nn)" class="block">중복확인</button></td>
+          <td class="LoginClass1">닉네임</td>
+          <td><input type="text" v-model="nn" class="block" id="reg4"></td>
+          <td><button @click="clickUseNick(nn)" class="block" id="hdlod2">중복확인</button></td>
         </tr>
         <tr>
-          <td>전화번호</td>
-          <td><input type="number" v-model="pn" class="block"></td>
+          <td class="LoginClass1">전화번호</td>
+          <td><input type="number" v-model="pn" class="block" id="reg5"></td>
         </tr>
       </table>
 
       <table>
         <tr>
           <td>
-            <button @click="registerOK()" class="block">확인</button>
+            <button @click="registerOK()" class="block" id="regok">확인</button>
           </td>
           <td>
-            <button @click="$router.push('/login')" type="null" class="block">취소</button>
+            <button @click="$router.push('/login')" type="null" class="block" id="regcl">취소</button>
           </td>
         </tr>
       </table>
@@ -114,5 +114,43 @@ td {
 button {
   padding-right: 40px;
   padding-left: 40px;
+}
+
+#reg1 {
+  height: 30px;
+  width: 300px;
+}
+#reg2 {
+  height: 30px;
+  width: 300px;
+}
+#reg3 {
+  height: 30px;
+  width: 300px;
+}
+#reg4 {
+  height: 30px;
+  width: 300px;
+}
+#reg5 {
+  height: 30px;
+  width: 300px;
+}
+#hdlod1 {
+  height: 30px;
+  margin-left: 10px;
+}
+#hdlod2 {
+  height: 30px;
+  margin-left: 10px;
+}
+
+#regok {
+  height: 30px;
+  width: 200px;
+}
+#regcl {
+  height: 30px;
+  width: 200px;
 }
 </style>

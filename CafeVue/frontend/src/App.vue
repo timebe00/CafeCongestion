@@ -31,7 +31,13 @@
           </v-list-item-title>
         </v-list-item>
 
-        <v-list-item @click="$router.push('/menuupdata')">
+        <v-list-item @click="test()">
+          <v-list-item-title>
+            확인
+          </v-list-item-title>
+        </v-list-item>
+        <div v-if="adSt !== 'null'">
+        <v-list-item @click="$router.push('/menuupdata')" >
           <v-list-item-title>
             메뉴수정
           </v-list-item-title>
@@ -42,6 +48,7 @@
             주문
           </v-list-item-title>
         </v-list-item>
+        </div>
       </v-list-item-group>
     </v-navigation-drawer>
     <router-view/>
@@ -60,11 +67,14 @@ export default {
       // this.getIdAc("null")
       this.$store.dispatch("getIdAc", "null")
       console.log("logout id : " + this.id)
+    },
+    test() {
+      console.log('idSt : ' + this.idSt)
     }
   },
   computed: {
+    ...mapState(['adSt']),
     ...mapState(['idSt'])
-    // ...mapState(['idSt']),
     // ...mapActions(['getIdAc'])
   },
   data: () => ({

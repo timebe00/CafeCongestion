@@ -24,7 +24,7 @@ import java.util.List;
 @Log
 @Controller
 @RequestMapping("/menu")
-@CrossOrigin(origins = "http://localhost:8080", allowedHeaders = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class MenuController {
     @Autowired
     private MenuService service;

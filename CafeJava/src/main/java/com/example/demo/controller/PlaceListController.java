@@ -13,7 +13,7 @@ import java.util.concurrent.BlockingDeque;
 @Log
 @RestController
 @RequestMapping("/place")
-@CrossOrigin(origins = "http://localhost:8080", allowedHeaders = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class PlaceListController {
 
     @Autowired

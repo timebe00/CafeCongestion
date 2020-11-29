@@ -39,11 +39,13 @@ public class GSMController {
         return "gsm";
     }
 
-    @GetMapping("/phone_call")
-    public String phone_call() throws InterruptedException, UnknownHostException {
+    @PostMapping("/phone_call")
+    public String phone_call(@Validated @RequestBody HashMap num) throws InterruptedException, UnknownHostException {
         log.info("phone_call()");
-
-        String phoneNum = "01029807183";
+        log.info("num : " + num);
+        String phoneNum = (String)num.get("num");
+        log.info(phoneNum);
+//        String phoneNum = "01029807183";
         sc.sendData(1, 1, phoneNum);
         sleep(1000);
 
@@ -65,7 +67,7 @@ public class GSMController {
     }
 
     @PostMapping("/phone_msg_send")
-    public String phone_msg_send(@Validated @RequestBody HashMap num) throws InterruptedException, UnknownHostException {
+    public String phone_msg_send1(@Validated @RequestBody HashMap num) throws InterruptedException, UnknownHostException {
         log.info("phone_msg_send()");
         log.info("num : " + num);
         log.info("num Hash : " + num.get("pho"));
@@ -77,7 +79,28 @@ public class GSMController {
         sc.sendData(2, 1, phoneNum, phoneMsg);
         sleep(1000);
 
-        log.info(UartSpring.phone_msg_send(phoneNum, phoneMsg));
+//        log.info(UartSpring.phone_msg_send(phoneNum, phoneMsg));
+
+        return "gsm";
+    }
+
+    @PostMapping("/phone_msg_send2")
+    public String phone_msg_send2(@Validated @RequestBody HashMap num) throws InterruptedException, UnknownHostException {
+        log.info("phone_msg_send()");
+        log.info("num : " + num);
+        log.info("num Hash : " + num.get("pho"));
+//        String phoneNum = "01040826312";
+        String phoneNum = (String)num.get("num");
+        String phoneMsg = (String)num.get("mess");
+        log.info(phoneNum);
+        log.info(phoneMsg);
+        //String phoneNum = "01072400150";
+//        String phoneMsg = "Come!";
+
+        sc.sendData(2, 1, phoneNum, phoneMsg);
+        sleep(1000);
+
+//        log.info(UartSpring.phone_msg_send(phoneNum, phoneMsg));
 
         return "gsm";
     }

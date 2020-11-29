@@ -6,6 +6,7 @@ import Menu from "../views/Menu.vue";
 import getOrder from "../views/manager/getOrder.vue";
 import MenuUpdata from "../views/manager/MenuUpdata.vue";
 import voidpage from "../views/manager/voidpage.vue";
+import gsm from "../components/gsm/gsm.vue";
 
 import Login from "../views/register/Login.vue";
 import Register from "../views/register/Register.vue";
@@ -90,6 +91,11 @@ const routes = [
     path: '/menu/voidpage',
     name: 'voidpage',
     component: voidpage
+  },
+  {
+    path: '/gsm',
+    name: 'gsm',
+    component: gsm
   }
 ];
 

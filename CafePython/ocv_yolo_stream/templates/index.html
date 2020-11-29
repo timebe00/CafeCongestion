@@ -1,9 +1,13 @@
 <html>
   <body>
-    <img id="bg" src="{{ url_for('video_feed') }}">
+    <img id="bg" src="{{ url_for('video_feed') }}" onclick="connted()">
+  <script>
+    function connted() {
+      window.open('https://industrial.ubidots.com/app/devices/5fbfe9d34763e771d7ac0816/5fbfe9d44763e771d7ac0817')
+    }
+  </script>
   </body>
 </html>
-
 <style>
   #bg {
     width: 900px;

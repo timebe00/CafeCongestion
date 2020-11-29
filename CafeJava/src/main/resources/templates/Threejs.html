@@ -53,6 +53,8 @@ scene.background = new THREE.Color( 0x000000);
 setInterval(recy,500)
 //  점 찍기
 //recy()
+
+
 function recy () {
     axios.get('http://localhost:1234/getlidar').then(res => {
         rs_angle = res.data.key_angle

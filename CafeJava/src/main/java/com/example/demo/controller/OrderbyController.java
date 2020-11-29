@@ -15,7 +15,7 @@ import java.util.List;
 @Log
 @RestController
 @RequestMapping("/orderby")
-@CrossOrigin(origins = "http://localhost:8080", allowedHeaders = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class OrderbyController {
 
     @Autowired

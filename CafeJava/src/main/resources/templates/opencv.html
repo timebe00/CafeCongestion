@@ -5,9 +5,8 @@
     <title>Title</title>
 </head>
 <section>
-    <div><iframe width="920px" height="500px"src = "http://0.0.0.0:5000/"> OPENCV </iframe></div>
-    <div><iframe width="920px" height="500px" src = "http://0.0.0.0:4455/"> OPENCV </iframe></div>
-    <div><canvas width="920px" height="750px" id="c"></canvas></div>
+    <div><iframe width="920px" height="500px" src = "http://0.0.0.0:4455/" id="cv"> OPENCV </iframe></div>
+    <div><canvas width="920px" height="750px" id="three"></canvas></div>
 </section>
 <body>
     <div id="numberz">
@@ -22,7 +21,7 @@
     import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r119/build/three.module.js';
     // import * as THREE from './resources/three/r122/build/three.module.js';
     //  그려줄 위치 설정하기
-    const canvas = document.querySelector('#c');
+    const canvas = document.querySelector('#three');
     const renderer = new THREE.WebGLRenderer({canvas});
 
     const fov = 178;
@@ -96,39 +95,19 @@
 </script>
 
 <style>
-    canvas {
-        border: 1px solid blue;
+    #cv {
+        position: fixed;
+        width: 49%;
+        top: 20%;
+
     }
-    section > div{
-        position: absolute;
-    }
-    section > div:nth-child(1) {
-        top: 0;
-        left: 0;
-        bottom: 50%;
-        right: 50%;
-    }
-    section > div:nth-child(2) {
-        top: 50%;
-        left: 0%;
-        bottom: 0%;
-        right: 50%;
-    }
-    section > div:nth-child(3){
-        top: 10%;
+    #three {
+        float: right;
+        position: fixed;
         left: 50%;
-        bottom: 0%;
-        right: 0%;
+        top: 10%;
+        width: 49%;
     }
-    iframe {
-        border: 2px red solid;
-    }
-
-    body {
-        margin: 0;
-        display: flex;
-    }
-
     #numberz {
         margin-left: 80%;
         margin-top: 30px;

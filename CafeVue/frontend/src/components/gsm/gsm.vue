@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div class="basmargin">
     <v-app id="inspire">
       <table>
         <tr>
@@ -11,14 +11,16 @@
           <td><v-text-field type="text" v-model="mess" /></td>
         </tr>
       </table>
-
-      <v-btn v-on:click="colltest()">전화</v-btn>
-      <v-btn v-on:click="txtmestest()">문자</v-btn>
+      <v-btn v-on:click="colltest(number)">전화</v-btn>
+      <v-btn v-on:click="end()">전화 종료</v-btn>
+      <v-btn v-on:click="txtmestest(number, mess)">문자</v-btn>
     </v-app>
   </div>
 </template>
 
 <script>
+import * as axios from "axios";
+
 export default {
   name: "Gsm",
   components: {},
@@ -30,11 +32,17 @@ export default {
   },
   computed: {},
   methods: {
-    colltest() {
+    colltest(num) {
       console.log("coll" + this.number);
+      axios.post("http://localhost:1234/phone_call", {num})
     },
-    txtmestest() {
+    txtmestest(num, mess) {
       console.log("txtmes" + this.mess);
+      axios.post("http://localhost:1234/phone_msg_send2", {num, mess})
+    },
+    end() {
+      console.log("end")
+      axios.get("http://localhost:1234/phone_finish")
     }
   },
   mounted() {}
